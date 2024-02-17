@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+  project_name:
+    build: .
+    image: api:latest
+    container_name: api
+    environment:
+      ENVIRONMENT: development
+    depends_on:
+      - db
+    volumes:
+      - .:/src
+    command: ["/scripts/command-dev.sh"]
+    ports:
+      - "8000:8000"
+
+  db:
+    image: postgres:12
+    container_name: api-postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
